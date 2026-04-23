@@ -33,7 +33,7 @@
           mode="tags"
           placeholder="请输入标签"
           :options="tagOptions"
-          allowClear
+          allow-Clear
         />
       </a-form-item>
       <a-form-item>
