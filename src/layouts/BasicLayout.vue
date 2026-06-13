@@ -1,10 +1,13 @@
 <template>
   <div id="basicLayout">
     <a-layout style="min-height: 100vh">
-      <a-layout-header class="header"><global-header/></a-layout-header>
-      <a-layout-content class="content">
-        <router-view/>
-      </a-layout-content>
+      <a-layout-header class="header"><GlobalHeader /></a-layout-header>
+      <a-layout>
+        <GlobalSider class="sider" />
+        <a-layout-content class="content">
+          <router-view />
+        </a-layout-content>
+      </a-layout>
       <a-layout-footer class="footer">
         <a href="https://www.codefather.cn" target="_blank">Design By AngelaEzioHe</a>
       </a-layout-footer>
@@ -14,24 +17,35 @@
 
 <script setup lang="ts">
 import GlobalHeader from '@/components/GlobalHeader.vue'
+import GlobalSider from '@/components/GlobalSider.vue'
 </script>
 
 <style scoped>
-#basicLayout .header{
+#basicLayout .header {
   padding-inline: 20px;
   background: white;
   color: unset;
-  margin-bottom: 16px;
-
+  margin-bottom: 1px;
 }
 
-#basicLayout .content{
-  padding: 20px;
+#basicLayout .sider {
+  background: #ffffff;
+  border-right: 0.5px solid #eee;
+  padding-top: 20px;
+}
+
+#basicLayout :deep(.ant-menu-root){
+  border-bottom: none !important;
+  border-inline: none !important;
+}
+
+#basicLayout .content {
+  padding: 28px;
   background: linear-gradient(to right, #fefefe, #fff);
   margin-bottom: 28px;
 }
 
-#basicLayout .footer{
+#basicLayout .footer {
   background: #efefef;
   padding: 16px;
   position: fixed;
@@ -39,6 +53,5 @@ import GlobalHeader from '@/components/GlobalHeader.vue'
   left: 0;
   right: 0;
   text-align: center;
-
 }
 </style>

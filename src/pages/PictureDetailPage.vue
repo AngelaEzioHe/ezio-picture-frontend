@@ -78,7 +78,7 @@ import { computed, onMounted, ref } from 'vue'
 import { deletePictureUsingPost, getPictureVoByIdUsingGet } from '@/api/pictureController.ts'
 import { message } from 'ant-design-vue'
 import { downloadImage, formatSize } from '@/utils'
-import { EditOutlined, DeleteOutlined,DownloadOutlined } from '@ant-design/icons-vue'
+import { EditOutlined, DeleteOutlined, DownloadOutlined } from '@ant-design/icons-vue'
 import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
 import router from '@/router'
 
@@ -123,7 +123,14 @@ const canEdit = computed(() => {
 
 // 编辑
 const doEdit = () => {
-  router.push('/add_picture?id=' + picture.value.id)
+  //跳转时，一定要携带 spaceId
+  router.push({
+    path: '/add_picture',
+    query: {
+      id: picture.value.id,
+      spaceId: picture.value.spaceId,
+    },
+  })
 }
 // 删除
 const doDelete = async () => {

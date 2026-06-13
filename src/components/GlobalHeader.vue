@@ -28,6 +28,12 @@
               </a-space>
               <template #overlay>
                 <a-menu>
+                  <a-menu-item>
+                    <router-link to="/my_space">
+                      <UserOutlined />
+                      我的空间
+                    </router-link>
+                  </a-menu-item>
                   <a-menu-item @click="doLogout">
                     <LogoutOutlined />
                     退出登录
@@ -47,7 +53,7 @@
 
 <script lang="ts" setup>
 import { computed, h, ref } from 'vue'
-import { HomeOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons-vue'
 import { MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStore.ts'
@@ -57,50 +63,55 @@ const loginUserStore = useLoginUserStore()
 
 //未经过滤的菜单项
 const originItems = [
-    {
-      key: '/',
-      icon: () => h(HomeOutlined),
-      label: '主页',
-      title: '主页',
-    },
+  {
+    key: '/',
+    icon: () => h(HomeOutlined),
+    label: '主页',
+    title: '主页',
+  },
   {
     key: '/add_picture',
     label: '创建图片',
     title: '创建图片',
   },
   {
-      key: '/admin/userManage',
-      label: '用户管理',
-      title: '用户管理',
-    },
+    key: '/admin/userManage',
+    label: '用户管理',
+    title: '用户管理',
+  },
   {
     key: '/admin/pictureManage',
     label: '图片管理',
     title: '图片管理',
   },
   {
-      key: 'other',
-      label: h('a', { href: 'https://www.codefather.cn', target: '_blank' }, '编程导航'),
-      title: '编程导航',
-    },
+    key: '/admin/spaceManage',
+    label: '空间管理',
+    title: '空间管理',
+  },
+  {
+    key: 'other',
+    label: h('a', { href: 'https://www.codefather.cn', target: '_blank' }, '编程导航'),
+    title: '编程导航',
+  },
 ]
 
 //根据权限过滤菜单项
-const filterMenu = (menus=[] as MenuProps['items'])=>{
-  return menus?.filter(((menu)=>{
+const filterMenu = (menus = [] as MenuProps['items']) => {
+  return menus?.filter((menu) => {
     //管理员才能看到 /admin 开头的菜单
-    if(menu?.key?.startsWith('/admin')){
-      const loginUser=loginUserStore.loginUser
-      if(!loginUser ||loginUser.userRole!='admin'){
-        return false;
+    if (menu?.key?.startsWith('/admin')) {
+      const loginUser = loginUserStore.loginUser
+      if (!loginUser || loginUser.userRole != 'admin') {
+        return false
       }
     }
-    return true;
-  }))
+    return true
+  })
 }
 
 //展示在菜单的路由数组
-const items=computed(() => filterMenu(originItems))
+const items = computed(() => filterMenu(originItems))
 
 const router = useRouter()
 //当前要高亮的菜单项
