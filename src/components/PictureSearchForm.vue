@@ -68,10 +68,10 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
-import type { RangeValue } from 'ant-design-vue/es/vc-picker/interface'
 import dayjs from 'dayjs'
 import { listPictureTagCategoryUsingGet } from '@/api/pictureController.ts'
 import { message } from 'ant-design-vue'
+
 interface Props {
   onSearch?: (searchParams: API.PictureQueryRequest) => void
 }
